@@ -1,25 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/job_entries/job_entries_page.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/jobs/edit_job_page.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/jobs/job_list_tile.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/jobs/list_items_builder.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
+// import 'package:starter_architecture_flutter_firebase/app/home/job_entries/job_entries_page.dart';
+ import 'package:starter_architecture_flutter_firebase/app/home/projet/edit_job_page.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/projet/job_list_tile.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/projet/list_items_builder.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/models/projet.dart';
 import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 
-final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
+final jobsStreamProvider = StreamProvider.autoDispose<List<projet>>((ref) {
   final database = ref.watch(databaseProvider)!;
   return database.jobsStream();
 });
 
 // watch database
-class JobsPage extends ConsumerWidget {
-  Future<void> _delete(BuildContext context, WidgetRef ref, Job job) async {
+class ProjetPage extends ConsumerWidget {
+  Future<void> _delete(BuildContext context, WidgetRef ref, projet job) async {
     try {
       final database = ref.read<FirestoreDatabase?>(databaseProvider)!;
       await database.deleteJob(job);
@@ -50,16 +50,19 @@ class JobsPage extends ConsumerWidget {
 
   Widget _buildContents(BuildContext context, WidgetRef ref) {
     final jobsAsyncValue = ref.watch(jobsStreamProvider);
-    return ListItemsBuilder<Job>(
+    return ListItemsBuilder<projet>(
       data: jobsAsyncValue,
-      itemBuilder: (context, job) => Dismissible(
-        key: Key('job-${job.id}'),
+      itemBuilder: (context, projet) => Dismissible(
+        key: Key('job-${projet.id}'),
         background: Container(color: Colors.red),
         direction: DismissDirection.endToStart,
-        onDismissed: (direction) => _delete(context, ref, job),
-        child: JobListTile(
-          job: job,
-          onTap: () => JobEntriesPage.show(context, job),
+        onDismissed: (direction) => _delete(context, ref, projet),
+        child: JobListTileP(
+          job: projet,
+          onTap: () => EditJobPage.show(
+              context,
+              job: projet,
+            ),
         ),
       ),
     );

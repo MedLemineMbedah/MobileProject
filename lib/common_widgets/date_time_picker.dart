@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/job_entries/format.dart';
+//import 'package:starter_architecture_flutter_firebase/app/home/job_entries/format.dart';
 import 'package:starter_architecture_flutter_firebase/common_widgets/input_dropdown.dart';
 
 class DateTimePicker extends StatelessWidget {
@@ -46,15 +46,6 @@ class DateTimePicker extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
-        Expanded(
-          flex: 5,
-          child: InputDropdown(
-            labelText: labelText,
-            valueText: Format.date(selectedDate),
-            valueStyle: valueStyle,
-            onPressed: () => _selectDate(context),
-          ),
-        ),
         const SizedBox(width: 12.0),
         Expanded(
           flex: 4,

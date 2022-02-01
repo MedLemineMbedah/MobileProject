@@ -1,10 +1,10 @@
 import 'package:email_password_sign_in_ui/email_password_sign_in_ui.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/job_entries/entry_page.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/jobs/edit_job_page.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
+//import 'package:starter_architecture_flutter_firebase/app/home/job_entries/entry_page.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/projet/edit_job_page.dart';
+//import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/models/projet.dart';
 
 class AppRoutes {
   static const emailPasswordSignInPage = '/email-password-sign-in-page';
@@ -26,16 +26,7 @@ class AppRouter {
         );
       case AppRoutes.editJobPage:
         return MaterialPageRoute<dynamic>(
-          builder: (_) => EditJobPage(job: args as Job?),
-          settings: settings,
-          fullscreenDialog: true,
-        );
-      case AppRoutes.entryPage:
-        final mapArgs = args as Map<String, dynamic>;
-        final job = mapArgs['job'] as Job;
-        final entry = mapArgs['entry'] as Entry?;
-        return MaterialPageRoute<dynamic>(
-          builder: (_) => EntryPage(job: job, entry: entry),
+          builder: (_) => EditJobPage(job: args as projet?),
           settings: settings,
           fullscreenDialog: true,
         );

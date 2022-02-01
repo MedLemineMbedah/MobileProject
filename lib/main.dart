@@ -16,7 +16,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   final sharedPreferences = await SharedPreferences.getInstance();
-  runApp(ProviderScope(
+  runApp(
+    ProviderScope(
     overrides: [
       sharedPreferencesServiceProvider.overrideWithValue(
         SharedPreferencesService(sharedPreferences),
@@ -36,9 +37,9 @@ class MyApp extends ConsumerWidget {
       home: AuthWidget(
         nonSignedInBuilder: (_) => Consumer(
           builder: (context, ref, _) {
-            final didCompleteOnboarding =
-                ref.watch(onboardingViewModelProvider);
-            return didCompleteOnboarding ? SignInPage() : OnboardingPage();
+            // final didCompleteOnboarding =
+            //     ref.watch(onboardingViewModelProvider);
+            return SignInPage();
           },
         ),
         signedInBuilder: (_) => HomePage(),

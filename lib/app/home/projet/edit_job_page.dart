@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/models/projet.dart';
 import 'package:alert_dialogs/alert_dialogs.dart';
 import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
 import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
 import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 import 'package:pedantic/pedantic.dart';
+import 'package:starter_architecture_flutter_firebase/constants/BasicDateField.dart';
+import 'package:intl/intl.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
 class EditJobPage extends ConsumerStatefulWidget {
   const EditJobPage({Key? key, this.job}) : super(key: key);
-  final Job? job;
+  final projet? job;
 
-  static Future<void> show(BuildContext context, {Job? job}) async {
+  static Future<void> show(BuildContext context, {projet? job}) async {
     await Navigator.of(context, rootNavigator: true).pushNamed(
       AppRoutes.editJobPage,
       arguments: job,
     );
   }
-
+  
   @override
   _EditJobPageState createState() => _EditJobPageState();
 }
@@ -27,14 +30,25 @@ class _EditJobPageState extends ConsumerState<EditJobPage> {
   final _formKey = GlobalKey<FormState>();
 
   String? _name;
-  int? _ratePerHour;
+  DateTime? debut;
+  DateTime? fin;
+  late TextEditingController _debutController,_finController,_nameController;
 
   @override
   void initState() {
     super.initState();
     if (widget.job != null) {
       _name = widget.job?.name;
-      _ratePerHour = widget.job?.ratePerHour;
+      debut = widget.job?.debut;
+       fin = widget.job?.fin;
+      _debutController = TextEditingController(text:debut.toString() );
+      _finController = TextEditingController(text:fin.toString() );
+      _nameController = TextEditingController(text:_name );
+     
+    }else{
+       _nameController = TextEditingController(text:'' );
+        _debutController = TextEditingController(text:DateTime.now().toString() );
+      _finController = TextEditingController(text:DateTime.now().toString()  );
     }
   }
 
@@ -49,6 +63,8 @@ class _EditJobPageState extends ConsumerState<EditJobPage> {
 
   Future<void> _submit() async {
     if (_validateAndSaveForm()) {
+    //  print(_debutController.text);
+      // return;
       try {
         final database = ref.read<FirestoreDatabase?>(databaseProvider)!;
         final jobs = await database.jobsStream().first;
@@ -67,7 +83,7 @@ class _EditJobPageState extends ConsumerState<EditJobPage> {
         } else {
           final id = widget.job?.id ?? documentIdFromCurrentDate();
           final job =
-              Job(id: id, name: _name ?? '', ratePerHour: _ratePerHour ?? 0);
+              projet(id: id, name: _name ?? '', debut: debut! ,fin: fin!);
           await database.setJob(job);
           Navigator.of(context).pop();
         }
@@ -129,23 +145,46 @@ class _EditJobPageState extends ConsumerState<EditJobPage> {
   List<Widget> _buildFormChildren() {
     return [
       TextFormField(
+        controller: _nameController ,
+        
         decoration: const InputDecoration(labelText: 'Job name'),
         keyboardAppearance: Brightness.light,
-        initialValue: _name,
+        
         validator: (value) =>
             (value ?? '').isNotEmpty ? null : 'Name can\'t be empty',
-        onSaved: (value) => _name = value,
+        
       ),
-      TextFormField(
-        decoration: const InputDecoration(labelText: 'Rate per hour'),
-        keyboardAppearance: Brightness.light,
-        initialValue: _ratePerHour != null ? '$_ratePerHour' : null,
-        keyboardType: const TextInputType.numberWithOptions(
-          signed: false,
-          decimal: false,
-        ),
-        onSaved: (value) => _ratePerHour = int.tryParse(value ?? '') ?? 0,
+      Column(children: <Widget>[
+      Text('date debut'),
+      DateTimeField(
+        format:DateFormat(),
+         controller: _debutController,
+        onShowPicker: (context, currentValue) {
+          return showDatePicker(
+              context: context,
+              firstDate: DateTime(1900),
+              initialDate: currentValue ?? DateTime.now(),
+              lastDate: DateTime(2100));
+      },
+     
       ),
+    ]),
+     Column(children: <Widget>[
+      Text('date fin'),
+      DateTimeField(
+        controller: _finController,
+        format: DateFormat(),
+        onShowPicker: (context, currentValue) {
+          return showDatePicker(
+              context: context,
+              firstDate: DateTime(1900),
+              initialDate: currentValue ?? DateTime.now(),
+              lastDate: DateTime(2100));
+      },
+    
+      ),
+    ]),
+ 
     ];
   }
 }

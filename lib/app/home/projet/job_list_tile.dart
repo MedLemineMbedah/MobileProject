@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/models/projet.dart';
 
-class JobListTile extends StatelessWidget {
-  const JobListTile({Key? key, required this.job, this.onTap})
+class JobListTileP extends StatelessWidget {
+  const JobListTileP({Key? key, required this.job, this.onTap,})
       : super(key: key);
-  final Job job;
+  final projet job;
   final VoidCallback? onTap;
 
   @override

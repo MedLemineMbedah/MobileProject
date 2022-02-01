@@ -1,16 +1,16 @@
 class Strings {
   // Generic strings
   static const String ok = 'OK';
-  static const String cancel = 'Cancel';
+  static const String cancel = 'annuler';
 
   // Logout
-  static const String logout = 'Logout';
+  static const String logout = 'Deconnection';
   static const String logoutAreYouSure =
       'Are you sure that you want to logout?';
   static const String logoutFailed = 'Logout failed';
 
   // Sign In Page
-  static const String signIn = 'Sign in';
+  static const String signIn = 'Se connecter';
   static const String signInWithEmailPassword =
       'Sign in with email and password';
   static const String goAnonymous = 'Go anonymous';
@@ -21,12 +21,12 @@ class Strings {
   static const String homePage = 'Home Page';
 
   // Jobs page
-  static const String jobs = 'Jobs';
+  static const String jobs = 'Taches';
 
   // Entries page
-  static const String entries = 'Entries';
+  static const String entries = 'en cours';
 
   // Account page
-  static const String account = 'Account';
-  static const String accountPage = 'Account Page';
+  static const String account = 'Profile';
+  static const String accountPage = "page d'accueil";
 }

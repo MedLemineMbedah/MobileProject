@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
 import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 
-enum TabItem { jobs, entries, account }
+enum TabItem { jobs, entries, account ,projet}
 
 class TabItemData {
   const TabItemData(
@@ -27,6 +27,11 @@ class TabItemData {
       key: Keys.accountTab,
       title: Strings.account,
       icon: Icons.person,
+    ),
+    TabItem.projet: TabItemData(
+      key: Keys.jobsTab,
+      title: Strings.jobs,
+      icon: Icons.task,
     ),
   };
 }

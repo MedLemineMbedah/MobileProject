@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:starter_architecture_flutter_firebase/app/home/tab_item.dart';
 import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
-import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view_router.dart';
+//import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view_router.dart';
 
 @immutable
 class CupertinoHomeScaffold extends StatelessWidget {
@@ -26,9 +26,11 @@ class CupertinoHomeScaffold extends StatelessWidget {
         key: const Key(Keys.tabBar),
         currentIndex: currentTab.index,
         items: [
+          
           _buildItem(TabItem.jobs),
           _buildItem(TabItem.entries),
           _buildItem(TabItem.account),
+          _buildItem(TabItem.projet),
         ],
         onTap: (index) => onSelectTab(TabItem.values[index]),
         activeColor: Colors.indigo,
@@ -38,7 +40,7 @@ class CupertinoHomeScaffold extends StatelessWidget {
         return CupertinoTabView(
           navigatorKey: navigatorKeys[item],
           builder: (context) => widgetBuilders[item]!(context),
-          onGenerateRoute: CupertinoTabViewRouter.generateRoute,
+        //  onGenerateRoute: CupertinoTabViewRouter.generateRoute,
         );
       },
     );

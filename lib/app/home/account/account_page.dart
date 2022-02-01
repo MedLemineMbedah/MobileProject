@@ -70,7 +70,7 @@ class AccountPage extends ConsumerWidget {
     return Column(
       children: [
         Avatar(
-          photoUrl: user.photoURL,
+          photoUrl: "starter_architecture_flutter_firebase/assets/2022_01_02_17_21_IMG_5065.JPG",
           radius: 50,
           borderColor: Colors.black54,
           borderWidth: 2.0,

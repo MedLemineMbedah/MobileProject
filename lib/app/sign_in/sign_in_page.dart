@@ -30,20 +30,23 @@ class SignInPage extends ConsumerWidget {
     });
     return SignInPageContents(
       viewModel: signInModel,
-      title: 'Architecture Demo',
+      title: 'Gestion de tache',
     );
   }
 }
+////////////////////////////////////////////////////
+
+
 
 class SignInPageContents extends StatelessWidget {
   const SignInPageContents(
-      {Key? key, required this.viewModel, this.title = 'Architecture Demo'})
+      {Key? key, required this.viewModel, this.title = 'Gestion de tache'})
       : super(key: key);
   final SignInViewModel viewModel;
   final String title;
 
   static const Key emailPasswordButtonKey = Key(Keys.emailPassword);
-  static const Key anonymousButtonKey = Key(Keys.anonymous);
+  //static const Key anonymousButtonKey = Key(Keys.anonymous);
 
   Future<void> _showEmailPasswordSignInPage(BuildContext context) async {
     final navigator = Navigator.of(context);
@@ -88,10 +91,12 @@ class SignInPageContents extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
+              
               const SizedBox(height: 32.0),
+              
               SizedBox(
                 height: 50.0,
-                child: _buildHeader(),
+                //child: _buildHeader(),
               ),
               const SizedBox(height: 32.0),
               SignInButton(
@@ -104,20 +109,20 @@ class SignInPageContents extends StatelessWidget {
                 color: Theme.of(context).primaryColor,
               ),
               const SizedBox(height: 8),
-              const Text(
-                Strings.or,
-                style: TextStyle(fontSize: 14.0, color: Colors.black87),
-                textAlign: TextAlign.center,
-              ),
+              // const Text(
+              //   Strings.or,
+              //   style: TextStyle(fontSize: 14.0, color: Colors.black87),
+              //   textAlign: TextAlign.center,
+              // ),
               const SizedBox(height: 8),
-              SignInButton(
-                key: anonymousButtonKey,
-                text: Strings.goAnonymous,
-                color: Theme.of(context).primaryColor,
-                textColor: Colors.white,
-                onPressed:
-                    viewModel.isLoading ? null : viewModel.signInAnonymously,
-              ),
+              // SignInButton(
+              //   key: anonymousButtonKey,
+              //   text: Strings.goAnonymous,
+              //   color: Theme.of(context).primaryColor,
+              //   textColor: Colors.white,
+              //   onPressed:
+              //       viewModel.isLoading ? null : viewModel.signInAnonymously,
+              // ),
             ],
           ),
         );
